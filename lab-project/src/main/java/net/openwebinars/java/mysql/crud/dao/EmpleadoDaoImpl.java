@@ -51,7 +51,32 @@ public class EmpleadoDaoImpl implements EmpleadoDao {
 
     @Override
     public Empleado getById(int id) throws SQLException {
-        return null;
+
+        Empleado result = null;
+
+        String sql = "SELECT * FROM empleado WHERE id_empleado = ?";
+
+        try (Connection conn = MyDataSource.getConnection();
+        PreparedStatement pstm = conn.prepareStatement(sql)) {
+
+            pstm.setInt(1, id);
+
+            try (ResultSet rs = pstm.executeQuery()) {
+
+                while (rs.next()) {
+                    result = new Empleado();
+                    result.setId_empleado(rs.getInt("id_empleado"));
+                    result.setNombre(rs.getString("nombre"));
+                    result.setApellidos(rs.getString("apellidos"));
+                    result.setFecha_nacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
+                    result.setPuesto(rs.getString("puesto"));
+                    result.setEmail(rs.getString("email"));
+                }
+
+            }
+        }
+
+        return result;
     }
 
     @Override

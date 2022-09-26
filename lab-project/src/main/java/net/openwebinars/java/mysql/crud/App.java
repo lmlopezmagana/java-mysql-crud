@@ -37,6 +37,10 @@ public class App {
             else
                 empleados.forEach(System.out::println);
 
+            Empleado emp1 = dao.getById(1);
+
+            System.out.println(emp1);
+
 
         } catch(SQLException ex) {
             ex.printStackTrace();
