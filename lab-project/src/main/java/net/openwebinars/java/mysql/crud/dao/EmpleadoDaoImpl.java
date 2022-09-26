@@ -3,10 +3,8 @@ package net.openwebinars.java.mysql.crud.dao;
 import net.openwebinars.java.mysql.crud.model.Empleado;
 import net.openwebinars.java.mysql.crud.pool.MyDataSource;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmpleadoDaoImpl implements EmpleadoDao {
@@ -58,7 +56,29 @@ public class EmpleadoDaoImpl implements EmpleadoDao {
 
     @Override
     public List<Empleado> getAll() throws SQLException {
-        return null;
+
+        String sql  = "SELECT * FROM empleado";
+        List<Empleado> result = new ArrayList<>();
+
+        try(Connection conn = MyDataSource.getConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery()) {
+
+            Empleado emp;
+
+            while(rs.next()) {
+                emp = new Empleado();
+                emp.setId_empleado(rs.getInt("id_empleado"));
+                emp.setNombre(rs.getString("nombre"));
+                emp.setApellidos(rs.getString("apellidos"));
+                emp.setFecha_nacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
+                emp.setPuesto(rs.getString("puesto"));
+                emp.setEmail(rs.getString("email"));
+                result.add(emp);
+            }
+        }
+
+        return result;
     }
 
     @Override
