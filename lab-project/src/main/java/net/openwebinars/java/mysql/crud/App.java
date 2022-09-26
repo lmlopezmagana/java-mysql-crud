@@ -38,7 +38,13 @@ public class App {
                 empleados.forEach(System.out::println);
 
             Empleado emp1 = dao.getById(1);
+            System.out.println(emp1);
 
+            emp1.setFecha_nacimiento(LocalDate.of(1982, 9, 19));
+
+            n = dao.update(emp1);
+
+            emp1 = dao.getById(1);
             System.out.println(emp1);
 
 

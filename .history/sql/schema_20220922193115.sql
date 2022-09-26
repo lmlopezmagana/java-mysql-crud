@@ -7,4 +7,3 @@ CREATE TABLE empleado (
     email               VARCHAR(320),
     PRIMARY KEY (id_empleado)
 );
-

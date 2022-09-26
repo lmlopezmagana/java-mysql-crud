@@ -4,6 +4,7 @@ import net.openwebinars.java.mysql.crud.model.Empleado;
 import net.openwebinars.java.mysql.crud.pool.MyDataSource;
 
 import java.sql.*;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,7 +109,31 @@ public class EmpleadoDaoImpl implements EmpleadoDao {
 
     @Override
     public int update(Empleado emp) throws SQLException {
-        return 0;
+
+        String sql = """
+                UPDATE empleado SET
+                    nombre = ?, apellidos = ?,
+                    fecha_nacimiento = ?,
+                    puesto = ?, email = ?
+                WHERE id_empleado = ?
+                """;
+
+        int result;
+
+        try(Connection conn = MyDataSource.getConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql)) {
+
+            pstm.setString(1, emp.getNombre());
+            pstm.setString(2, emp.getApellidos());
+            pstm.setDate(3, Date.valueOf(emp.getFecha_nacimiento()));
+            pstm.setString(4, emp.getPuesto());
+            pstm.setString(5, emp.getEmail());
+            pstm.setInt(6, emp.getId_empleado());
+
+            result = pstm.executeUpdate();
+        }
+
+        return result;
     }
 
     @Override
