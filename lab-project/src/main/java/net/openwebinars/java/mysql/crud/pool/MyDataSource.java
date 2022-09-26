@@ -12,7 +12,7 @@ public class MyDataSource {
     private static HikariDataSource dataSource;
 
     static {
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/empresa?allowPublicKeyRetrieval=true&useSSL=false");
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/empresa?allowPublicKeyRetrieval=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Madrid");
         config.setUsername("user");
         config.setPassword("password");
         config.addDataSourceProperty("maximumPoolSize", 1);
