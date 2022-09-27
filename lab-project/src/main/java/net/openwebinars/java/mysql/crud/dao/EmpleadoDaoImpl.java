@@ -138,5 +138,14 @@ public class EmpleadoDaoImpl implements EmpleadoDao {
     @Override
     public void delete(int id) throws SQLException {
 
+        String sql = "DELETE FROM empleado WHERE id_empleado = ?";
+
+        try (Connection conn = MyDataSource.getConnection();
+                PreparedStatement pstm = conn.prepareStatement(sql)) {
+
+            pstm.setInt(1, id);
+            pstm.executeUpdate();
+        }
+
     }
 }

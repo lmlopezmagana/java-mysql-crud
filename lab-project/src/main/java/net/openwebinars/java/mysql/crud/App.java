@@ -47,6 +47,14 @@ public class App {
             emp1 = dao.getById(1);
             System.out.println(emp1);
 
+            dao.delete(1);
+            empleados = dao.getAll();
+            if (empleados.isEmpty())
+                System.out.println("No hay empleados registrados");
+            else
+                empleados.forEach(System.out::println);
+
+
 
         } catch(SQLException ex) {
             ex.printStackTrace();
