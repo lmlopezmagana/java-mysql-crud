@@ -4,7 +4,6 @@ import net.openwebinars.java.mysql.crud.model.Empleado;
 import net.openwebinars.java.mysql.crud.pool.MyDataSource;
 
 import java.sql.*;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
